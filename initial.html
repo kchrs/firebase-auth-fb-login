@@ -1,0 +1,88 @@
+<head>
+        
+</head>
+<body>
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-firestore.js"></script>
+    <script>
+        window.fbAsyncInit = function() {
+           FB.init ({
+              appId      : '186142862315301',
+              xfbml      : true,
+              version    : 'v2.6'
+           });
+        };
+     
+        (function(d, s, id) {
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "http://connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+         
+     </script>
+<div>
+        <button onclick = "facebookSignin()">Facebook Signin</button>
+        <button onclick = "facebookSignout()">Facebook Signout</button>
+</div>
+
+   
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyB35z5xFIQU906u1AzApj23fMavSBmWXMc",
+    authDomain: "my-project-1550586257348.firebaseapp.com",
+    databaseURL: "https://my-project-1550586257348.firebaseio.com",
+    projectId: "my-project-1550586257348",
+    storageBucket: "",
+    messagingSenderId: "546942615918",
+    appId: "1:546942615918:web:09c49574bde60f02"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+var provider = new firebase.auth.FacebookAuthProvider();
+
+function facebookSignin() {
+   firebase.auth().signInWithPopup(provider)
+   
+   .then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+		
+      console.log(token)
+      console.log(user)
+   }).catch(function(error) {
+      console.log(error.code);
+      console.log(error.message);
+   });
+}
+
+function facebookSignout() {
+   firebase.auth().signOut()
+   
+   .then(function() {
+      console.log('Signout successful!')
+   }, function(error) {
+      console.log('Signout failed')
+   });
+}
+
+
+</script>
+
+</body>
